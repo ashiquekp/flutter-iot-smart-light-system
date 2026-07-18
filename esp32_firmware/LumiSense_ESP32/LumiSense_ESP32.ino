@@ -46,7 +46,7 @@ WiFiClient espClient;
 
 void setup() {
     Serial.begin(115200);
-    delay(1000);  // Wait for serial to initialize
+    delay(1000);  // Wait for serial to initialize.
     
     Serial.println("\n╔═══════════════════════════════════════╗");
     Serial.println("║      LumiSense ESP32-C3 v1.0.0      ║");
@@ -76,7 +76,7 @@ void setup() {
     mqttManager.init(espClient);
     mqttManager.setCallback(handleMQTTMessage);
     
-    // Try to connect to MQTT broker
+    // Try to connect to MQTT broker.
     if (wifiManager.isConnected()) {
         Serial.print("Connecting to MQTT broker... ");
         mqttManager.connect(MQTT_BROKER, MQTT_PORT, MQTT_CLIENT_ID);
@@ -183,7 +183,7 @@ void loop() {
             }
         }
         
-        // Publish telemetry - always publish on change
+        // Publish telemetry - always publish on change.
         if (mqttConnected) {
             publishTelemetry();
             publishLEDStatus();
@@ -196,7 +196,7 @@ void loop() {
         updateDeviceStatus();
     }
     
-    // Small delay to prevent watchdog issues
+    // Small delay to prevent watchdog issues.
     delay(10);
 }
 
@@ -204,7 +204,7 @@ void publishTelemetry() {
     LightData data = dataManager.getCurrentData();
     char buffer[32];
     
-    // Always publish even if values haven't changed (for testing)
+    // Always publish even if values haven't changed (for testing).
     snprintf(buffer, sizeof(buffer), "%d", data.ldrValue);
     mqttManager.publish(MQTT_TOPIC_LDR, buffer);
     Serial.print("📤 Published LDR: ");
@@ -229,12 +229,12 @@ void publishTelemetry() {
     Serial.print(" | LED: ");
     Serial.println(data.isLedOn ? "ON" : "OFF");
 }
-
+ 
 void publishLEDStatus() {
     String ledStatus = ledManager.getLEDStatusJSON();
     mqttManager.publish(MQTT_TOPIC_LED_STATUS, ledStatus.c_str());
 }
-
+ 
 void handleMQTTMessage(char* topic, uint8_t* payload, unsigned int length) {
     String topicStr = String(topic);
     String payloadStr = "";
@@ -250,7 +250,7 @@ void handleMQTTMessage(char* topic, uint8_t* payload, unsigned int length) {
     
     processCommand(topicStr, payloadStr);
 }
-
+ 
 void processCommand(String topic, String payload) {
     if (topic == MQTT_TOPIC_COMMAND_MODE) {
         if (payload == "auto") {
@@ -342,7 +342,7 @@ void processCommand(String topic, String payload) {
         Serial.println(threshold);
     }
 }
-
+ 
 void updateDeviceStatus() {
     unsigned long uptime = (millis() - startTime) / 1000;
     unsigned long hours = uptime / 3600;

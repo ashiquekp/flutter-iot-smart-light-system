@@ -12,13 +12,13 @@ final exportServiceProvider = Provider<ExportService>((ref) {
 class ExportService {
   final HistoryRepository _repository;
 
-  ExportService(this._repository);
+  ExportService(this._repository); 
 
   Future<void> exportToCsv() async {
     final records = await _repository.getHistory();
     
     if (records.isEmpty) {
-      throw Exception('No data to export');
+      throw Exception('No data to export'); 
     }
 
     final csvData = [
@@ -37,6 +37,6 @@ class ExportService {
     final fileName = 'lumisense_history_${DateTime.now().millisecondsSinceEpoch}.csv';
     final file = File('${directory.path}/$fileName');
     
-    await file.writeAsString(csvString);
+    await file.writeAsString(csvString); 
   }
 }

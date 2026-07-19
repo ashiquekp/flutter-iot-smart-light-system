@@ -9,7 +9,7 @@ LEDManager::LEDManager() : _autoMode(true), _threshold(500) {
   _leds[4] = {LED_PIN_BLUE, "Blue", 0, false};
   _leds[5] = {LED_PIN_ORANGE, "Orange", 0, false};
   
-  // Initialize PWM channels
+  // Initialize PWM channels.
   _pwmChannel[0] = 0;
   _pwmChannel[1] = 1;
   _pwmChannel[2] = 2;
@@ -21,8 +21,8 @@ LEDManager::LEDManager() : _autoMode(true), _threshold(500) {
 void LEDManager::init() {
   for (int i = 0; i < 6; i++) {
     pinMode(_leds[i].pin, OUTPUT);
-    // Setup PWM for each LED - ESP32-C3 uses ledcAttach
-    ledcAttach(_leds[i].pin, 5000, 8);  // 5 kHz, 8-bit resolution
+    // Setup PWM for each LED - ESP32-C3 uses ledcAttach.
+    ledcAttach(_leds[i].pin, 5000, 8);  // 5 kHz, 8-bit resolution.
     ledcWrite(_leds[i].pin, 0);
     _leds[i].isOn = false;
     _leds[i].brightness = 0;
@@ -89,7 +89,7 @@ void LEDManager::turnOff(LedColor color) {
     turnAllOff();
     return;
   }
-  
+   
   int index = _getIndexForColor(color);
   if (index >= 0 && index < 6) {
     _leds[index].isOn = false;
@@ -111,7 +111,7 @@ void LEDManager::turnAllOn() {
     ledcWrite(_leds[i].pin, _leds[i].brightness);
   }
 }
-
+ 
 void LEDManager::turnAllOff() {
   for (int i = 0; i < 6; i++) {
     _leds[i].isOn = false;
@@ -128,7 +128,7 @@ void LEDManager::setAllBrightness(int brightness) {
     }
   }
 }
-
+ 
 bool LEDManager::isOn(LedColor color) {
   if (color == LED_ALL) {
     // Return true if any LED is on
@@ -147,7 +147,7 @@ bool LEDManager::isOn(LedColor color) {
 
 int LEDManager::getBrightness(LedColor color) {
   if (color == LED_ALL) {
-    // Return average brightness
+    // Return average brightness.
     int sum = 0;
     for (int i = 0; i < 6; i++) {
       sum += _leds[i].brightness;
@@ -178,7 +178,7 @@ void LEDManager::autoAdjust(int ldrValue, int threshold, int maxBrightness) {
   
   setAllBrightness(brightness);
   
-  // If all LEDs are off but brightness > 0, turn them on
+  // If all LEDs are off but brightness > 0, turn them on.
   if (brightness > 0 && !isOn(LED_ALL)) {
     turnAllOn();
   } else if (brightness == 0 && isOn(LED_ALL)) {
@@ -208,7 +208,7 @@ String LEDManager::getStatus() {
 String LEDManager::getLEDStatusJSON() {
   String json = "{";
   for (int i = 0; i < 6; i++) {
-    // Fixed: Store color name in a separate String variable
+    // Fixed: Store color name in a separate String variable.
     String colorName = _leds[i].name;
     colorName.toLowerCase();
     json += "\"" + colorName + "\":{";

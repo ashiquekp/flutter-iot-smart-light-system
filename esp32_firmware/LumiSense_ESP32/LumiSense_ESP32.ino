@@ -33,7 +33,7 @@ bool wifiConnected = false;
 bool mqttConnected = false;
 int lastPublishedLdr = -1;
 int lastPublishedBrightness = -1;
-
+ 
 // Function declarations
 void publishTelemetry();
 void handleMQTTMessage(char* topic, uint8_t* payload, unsigned int length);
@@ -41,7 +41,7 @@ void processCommand(String topic, String payload);
 void updateDeviceStatus();
 void publishLEDStatus();
 
-// WiFi client for MQTT
+// WiFi client for MQTT.
 WiFiClient espClient;
 
 void setup() {
@@ -60,7 +60,7 @@ void setup() {
     ledManager.init();
     dataManager.updateLightData(0, 0, autoMode, false);
     
-    // Connect to WiFi
+    // Connect to WiFi.
     Serial.print("Connecting to WiFi ");
     wifiManager.connect(WIFI_SSID, WIFI_PASSWORD);
     
@@ -85,14 +85,14 @@ void setup() {
             mqttConnected = true;
             Serial.println("✓ Connected!");
             
-            // Subscribe to command topics
+            // Subscribe to command topics.
             mqttManager.subscribe(MQTT_TOPIC_COMMAND_MODE);
             mqttManager.subscribe(MQTT_TOPIC_COMMAND_BRIGHTNESS);
             mqttManager.subscribe(MQTT_TOPIC_COMMAND_THRESHOLD);
             mqttManager.subscribe(MQTT_TOPIC_COMMAND_LED);
             mqttManager.subscribe(MQTT_TOPIC_COMMAND_LED_COLOR);
             
-            // Publish initial status
+            // Publish initial status.
             mqttManager.publish(MQTT_TOPIC_STATUS, "{\"status\":\"online\",\"message\":\"ESP32 initialized\"}");
         } else {
             Serial.println("✗ Failed to connect!");

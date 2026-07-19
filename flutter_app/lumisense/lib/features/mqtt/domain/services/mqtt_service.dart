@@ -125,7 +125,7 @@ class MqttService {
       builder.payload!,
     );
   }
-
+ 
   Future<void> publishLedCommand(bool isOn) async {
     if (!_isConnected) return;
     final payload = isOn ? 'on' : 'off';
@@ -137,13 +137,13 @@ class MqttService {
       builder.payload!,
     );
   }
-
+ 
   void disconnect() {
     _client?.disconnect();
     _isConnected = false;
     _client = null;
   }
-
+ 
   void dispose() {
     disconnect();
     _messageController.close();

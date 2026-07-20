@@ -6,8 +6,8 @@
 // ============================================
 // WiFi Configuration
 // ============================================
-#define WIFI_SSID "realme 10 Pro 5G"           // Replace with your WiFi SSID
-#define WIFI_PASSWORD "Ashique."    // Replace with your WiFi password
+#define WIFI_SSID "your_wifi_ssid"           // Replace with your WiFi SSID
+#define WIFI_PASSWORD "your_wifi_password"    // Replace with your WiFi password
 
 // ============================================
 // MQTT Configuration
